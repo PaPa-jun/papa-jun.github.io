@@ -35,7 +35,7 @@ theme:
   language: zh
   name: material
   logo: assets/logo.svg
-  favicon: assets/icon.png
+  favicon: assets/favicon/favicon.ico
   palette:
 
     # Palette toggle for automatic mode
@@ -90,8 +90,8 @@ extra:
   generator: false
 
 copyright: Copyright &copy; 2023 - 2024 YufengPeng
-repo_url: https://github.com/PaPa-jun/PaPa-jun.github.io
-repo_name: PaPa-jun/PaPa-jun.github.io
+repo_url: https://github.com/PaPa-jun/papa-jun.github.io
+repo_name: PaPa-jun/papa-jun.github.io
 
 markdown_extensions:
   - pymdownx.arithmatex:

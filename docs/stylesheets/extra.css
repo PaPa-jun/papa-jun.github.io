@@ -18,14 +18,14 @@
 /* PingFang SC @font-face definitions */
 @font-face {
     font-family: 'PingFang SC';
-    src: url('../assets/fonts/PingFang/PingFangSC-Regular.otf') format('opentype');
+    src: url('../assets/fonts/PingFang-Relaxed/PingFangRelaxedSC-Regular.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'PingFang SC';
-    src: url('../assets/fonts/PingFang/PingFangSC-Medium.otf') format('opentype');
+    src: url('../assets/fonts/PingFang-Relaxed/PingFangRelaxedSC-Medium.otf') format('opentype');
     font-weight: 500;
     font-style: normal;
 }

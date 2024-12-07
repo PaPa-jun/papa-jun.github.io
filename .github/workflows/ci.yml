@@ -1,64 +1,66 @@
-name: ci 
+name: ci
+
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+
 permissions:
   contents: write
+
+env:
+  DOMAIN: ${{ secrets.DOMAIN }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main # 初始检出main分支
+          fetch-depth: 0  # 确保可以访问所有历史记录以检出 gh-pages 分支
+
       - name: Configure Git Credentials
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
-      - id: calculate-cache-key
-        run: |
-          echo "::set-output name=cache-key::mkdocs-material-$(find . -type f $ -name 'requirements.txt' -o -name 'pyproject.toml' $ -exec sha256sum {} + | sort | sha256sum | cut -d' ' -f1)"
-        shell: bash
-      - uses: actions/cache@v4
-        id: cache-dependencies
-        with:
-          path: |
-            ~/.cache/pip
-            .cache
-          key: ${{ steps.calculate-cache-key.outputs.cache-key }}
-          restore-keys: |
-            mkdocs-material-
-      - name: Install dependencies
-        if: steps.cache-dependencies.outputs.cache-hit != 'true'
+          python-version: 3.x
+
+      - name: Install Dependencies
         run: pip install -r requirements.txt
-      - name: Build and Deploy Documentation
-        run: mkdocs gh-deploy --force --remote-branch gh-pages
-      - name: Checkout gh-pages branch for CNAME update
-        if: success()
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository }}
-          ref: gh-pages
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Check and Update CNAME File
-        if: success()
+
+      - name: Deploy Documentation
+        run: mkdocs gh-deploy --force
+
+      - name: Checkout gh-pages Branch
         run: |
-          DOMAIN=${{ secrets.DOMAIN }}
+          git checkout gh-pages || git checkout -b gh-pages
+          git pull origin gh-pages
+
+      - name: Check and Update CNAME File
+        id: cname-check
+        run: |
           if [ ! -f "CNAME" ]; then
-            echo "$DOMAIN" > CNAME
-            git add CNAME
-            git commit -m "Add CNAME file for custom domain"
-            git push origin gh-pages
+            echo "${{ env.DOMAIN }}" > CNAME
+            echo "CNAME file created."
           else
             CURRENT_DOMAIN=$(cat CNAME)
-            if [ "$CURRENT_DOMAIN" != "$DOMAIN" ]; then
-              echo "$DOMAIN" > CNAME
-              git add CNAME
-              git commit -m "Update CNAME file to match secret.DOMAIN"
-              git push origin gh-pages
+            if [ "$CURRENT_DOMAIN" != "${{ env.DOMAIN }}" ]; then
+              echo "${{ env.DOMAIN }}" > CNAME
+              echo "CNAME file updated to match env.DOMAIN."
+            else
+              echo "CNAME file already matches env.DOMAIN."
             fi
           fi
+
+      - name: Commit and Push Changes
+        if: steps.cname-check.outcome == 'success'
+        run: |
+          git add CNAME
+          git commit -m "Update CNAME file to ${{ env.DOMAIN }}" || echo "No changes to commit."
+          git push origin gh-pages

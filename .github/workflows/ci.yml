@@ -45,21 +45,25 @@ jobs:
       - name: Check and Update CNAME File
         id: cname-check
         run: |
+          NEED_COMMIT=false
           if [ ! -f "CNAME" ]; then
             echo "${{ env.DOMAIN }}" > CNAME
             echo "CNAME file created."
+            NEED_COMMIT=true
           else
             CURRENT_DOMAIN=$(cat CNAME)
             if [ "$CURRENT_DOMAIN" != "${{ env.DOMAIN }}" ]; then
               echo "${{ env.DOMAIN }}" > CNAME
               echo "CNAME file updated to match env.DOMAIN."
+              NEED_COMMIT=true
             else
               echo "CNAME file already matches env.DOMAIN."
             fi
           fi
+          echo "NEED_COMMIT=$NEED_COMMIT" >> $GITHUB_ENV
 
       - name: Commit and Push Changes
-        if: steps.cname-check.outcome == 'success'
+        if: env.NEED_COMMIT == 'true'
         run: |
           git add CNAME
           git commit -m "Update CNAME file to ${{ env.DOMAIN }}" || echo "No changes to commit."

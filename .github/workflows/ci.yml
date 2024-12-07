@@ -25,17 +25,16 @@ jobs:
         with:
           python-version: "3.x"
 
-      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
-
-      - uses: actions/cache@v4
+      - name: Install dependencies and cache them
+        uses: actions/cache@v4
+        id: pip-cache # 使用 ID 以便后续步骤可以引用它
         with:
-          key: mkdocs-material-${{ env.cache_id }}
-          path: .cache
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
-            mkdocs-material-
+            ${{ runner.os }}-pip-
 
       - run: pip install mkdocs-material
-
       - run: pip install mkdocs-glightbox
 
       - name: Deploy with mkdocs gh-deploy

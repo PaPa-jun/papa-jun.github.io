@@ -16,7 +16,8 @@ nav:
     - Linear Model II: notes/MathineLearning/LinearModelII.md
     - Neural Network: notes/MathineLearning/NeuralNetwork.md
     - Backpropagation: notes/MathineLearning/Backpropagation.md
-    - Experiments:
+    - Experiments: 
+      - notes/MathineLearning/exp.md
       - GPU Performance: notes/MathineLearning/GPUPerformance.md
       - Neural Network: notes/MathineLearning/iris.md
   - Introduction to Algorithm:
@@ -66,7 +67,7 @@ theme:
     - navigation.instant
     - navigation.tabs
     - navigation.prune
-    - navigation.indexes
+    # - navigation.indexes
     - toc.follow
     - search.suggest
     - search.highlight

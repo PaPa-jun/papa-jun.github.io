@@ -5,7 +5,7 @@ categories:
 date: 2024-12-7 17:41:00
 ---
 
-号外号外！原先基于 [Hexo + NexT](https://theme-next.js.org) 的博客迁移到了 [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) 系统。带来了全新的[照片墙](../../photos/index.md)和[资源分享](../../resources/index.md)板块，以及更简洁好看的界面。感谢上面提到的两个开源项目的开发者，为我这样对 Web 框架知之甚少（目前只做两个项目，一个基于 Flask 的类似 IMDb 的网站、一个是基于 FastApi 的纯后端借口）的开发者提供了非常大的便利。
+号外号外！原先基于 [Hexo + NexT](https://theme-next.js.org) 的博客迁移到了 [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) 系统。带来了全新的[照片墙](../../photos/index.md)和[资源分享](../../resources/index.md)板块，以及更简洁好看的界面。感谢上面提到的两个开源项目的开发者，为我这样对 Web 框架知之甚少的开发者提供了非常大的便利。
 
 本站现在开始不仅仅作为一个单纯的博客分享站存在了，逐渐向一个涵盖了多种用途的综合性个人网站发展，现有的几个板块在将来可能还会有调整，当然也可能就慢慢被我鸽掉了…… 
 

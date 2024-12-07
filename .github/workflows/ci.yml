@@ -1,58 +1,64 @@
-name: ci
-
+name: ci 
 on:
   push:
     branches:
       - main
-
 permissions:
   contents: write
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # 确保获取完整历史记录
-
+          ref: main # 初始检出main分支
       - name: Configure Git Credentials
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.x"
-
-      - name: Install dependencies and cache them
-        uses: actions/cache@v4
-        id: pip-cache # 使用 ID 以便后续步骤可以引用它
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-            
-      - run: pip install mkdocs-material
-      - run: pip install mkdocs-glightbox
-
-      - name: Deploy with mkdocs gh-deploy
-        run: mkdocs gh-deploy --force --message "Deploying from CI [skip ci]"
-
-      - name: Sync CNAME file to gh-pages branch from secret
+          python-version: '3.x'
+      - id: calculate-cache-key
         run: |
-          # 检查并切换到 gh-pages 分支
-          git checkout gh-pages || (git checkout --orphan gh-pages && git rm -rf .)
-
-          # 从 GitHub Secrets 获取域名并写入 CNAME 文件
-          echo "${{ secrets.DOMAIN }}" > CNAME
-
-          # 添加、提交并推送更改到 gh-pages 分支
-          git add CNAME
-          if ! git diff-index --quiet HEAD --; then
-            git commit -m "Sync CNAME file from secret"
+          echo "::set-output name=cache-key::mkdocs-material-$(find . -type f $ -name 'requirements.txt' -o -name 'pyproject.toml' $ -exec sha256sum {} + | sort | sha256sum | cut -d' ' -f1)"
+        shell: bash
+      - uses: actions/cache@v4
+        id: cache-dependencies
+        with:
+          path: |
+            ~/.cache/pip
+            .cache
+          key: ${{ steps.calculate-cache-key.outputs.cache-key }}
+          restore-keys: |
+            mkdocs-material-
+      - name: Install dependencies
+        if: steps.cache-dependencies.outputs.cache-hit != 'true'
+        run: pip install -r requirements.txt
+      - name: Build and Deploy Documentation
+        run: mkdocs gh-deploy --force --remote-branch gh-pages
+      - name: Checkout gh-pages branch for CNAME update
+        if: success()
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          ref: gh-pages
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check and Update CNAME File
+        if: success()
+        run: |
+          DOMAIN=${{ secrets.DOMAIN }}
+          if [ ! -f "CNAME" ]; then
+            echo "$DOMAIN" > CNAME
+            git add CNAME
+            git commit -m "Add CNAME file for custom domain"
             git push origin gh-pages
           else
-            echo "No changes to commit for CNAME file"
+            CURRENT_DOMAIN=$(cat CNAME)
+            if [ "$CURRENT_DOMAIN" != "$DOMAIN" ]; then
+              echo "$DOMAIN" > CNAME
+              git add CNAME
+              git commit -m "Update CNAME file to match secret.DOMAIN"
+              git push origin gh-pages
+            fi
           fi

@@ -33,6 +33,9 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
+      
+      - name: Debug hashFiles output
+        run: echo "Hash of requirements.txt is ${{ hashFiles('**/requirements.txt') }}"
 
       - run: pip install mkdocs-material
       - run: pip install mkdocs-glightbox

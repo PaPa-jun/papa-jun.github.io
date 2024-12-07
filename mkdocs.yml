@@ -1,0 +1,124 @@
+site_name: Me Neither
+site_url: http://127.0.0.1:8000
+
+nav:
+- 主页:
+  - index.md
+  - 关于我: about.md
+- 课程笔记:
+  - notes/index.md
+  - Machine Learning:
+    - notes/MathineLearning/index.md
+    - Linear Regression: notes/MathineLearning/LinearRegression.md
+    - Performing Evaluation: notes/MathineLearning/PerformanceEvaluation.md
+    - Regularization: notes/MathineLearning/RidgeRegression.md
+    - Linear Model I: notes/MathineLearning/LinearModel.md
+    - Linear Model II: notes/MathineLearning/LinearModelII.md
+    - Neural Network: notes/MathineLearning/NeuralNetwork.md
+    - Backpropagation: notes/MathineLearning/Backpropagation.md
+    - Experiments:
+      - GPU Performance: notes/MathineLearning/GPUPerformance.md
+      - Neural Network: notes/MathineLearning/iris.md
+  - Introduction to Algorithm:
+    - notes/IntroductionToAlgorithm/index.md
+  - 运筹学:
+    - notes/OperationResearch/index.md
+    - 增广拉格朗日函数法: notes/OperationResearch/AugementedLagrangianMethod.md
+- 资源分享:
+  - resources/index.md
+- 博客:
+  - blog/index.md
+- 照片墙:
+  - photos/index.md
+
+theme:
+  language: zh
+  name: material
+  logo: assets/logo.svg
+  favicon: assets/icon.png
+  palette:
+
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.prune
+    - navigation.indexes
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+
+# plugins
+plugins:
+  - blog
+  - search
+  - glightbox
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/PaPa-jun
+    - icon: fontawesome/solid/envelope
+      link: mailto:<pengyufenguni@mail.ustc.edu.cn>
+    - icon: fontawesome/brands/steam
+      link: www.example.com
+  generator: false
+
+copyright: Copyright &copy; 2023 - 2024 YufengPeng
+repo_url: https://github.com/PaPa-jun/PaPa-jun.github.io
+repo_name: PaPa-jun/PaPa-jun.github.io
+
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.caption
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - tables
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.tabbed:
+      alternate_style: true
+
+# mathjax
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+extra_css:
+  - stylesheets/extra.css

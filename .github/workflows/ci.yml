@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # 确保获取完整历史记录
+          fetch-depth: 0 # 确保获取完整历史记录
 
       - name: Configure Git Credentials
         run: |
@@ -23,9 +23,9 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: "3.x"
 
-      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV 
+      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
 
       - uses: actions/cache@v4
         with:
@@ -41,15 +41,19 @@ jobs:
       - name: Deploy with mkdocs gh-deploy
         run: mkdocs gh-deploy --force --message "Deploying from CI [skip ci]"
 
-      - name: Sync CNAME file to gh-pages branch
+      - name: Sync CNAME file to gh-pages branch from secret
         run: |
           # 检查并切换到 gh-pages 分支
           git checkout gh-pages || (git checkout --orphan gh-pages && git rm -rf .)
-          
-          # 从 main 分支获取最新的 CNAME 文件
-          git checkout main -- CNAME
-          
+
+          # 从 GitHub Secrets 获取域名并写入 CNAME 文件
+          echo "${{ secrets.DOMAIN }}" > CNAME
+
           # 添加、提交并推送更改到 gh-pages 分支
           git add CNAME
-          git commit -m "Sync CNAME file from main branch" || echo "No changes to commit"
-          git push origin gh-pages
+          if ! git diff-index --quiet HEAD --; then
+            git commit -m "Sync CNAME file from secret"
+            git push origin gh-pages
+          else
+            echo "No changes to commit for CNAME file"
+          fi

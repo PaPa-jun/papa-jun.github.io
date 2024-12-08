@@ -17,6 +17,8 @@
 
     存放了一些我在课程学习过程中记录的笔记，包含数学、计算机等专业的内容。
 
+    ---
+
     [:material-arrow-right: 去这里](./notes/index.md)
 
 - :paperclips: __资源分享__
@@ -24,6 +26,8 @@
     ---
 
     我原创或者从网络上搜罗来的各种资料，供下载或预览。
+
+    ---
 
     [:material-arrow-right: 去这里](./resources/index.md)
 
@@ -41,6 +45,8 @@
 
     我记录生活的地方，一些有意思的文章，帮助你认识我，认识我认识的人或地方。
 
+    ---
+
     [:material-arrow-right: 去这里](./blog/index.md)
 
 - :fontawesome-solid-photo-film: __照片墙__
@@ -48,6 +54,8 @@
     ---
 
     什么？只有文字不够？:woozy_face: 那可以去看看我拍的照片，好多好看的风景呢！
+
+    ---
 
     [:material-arrow-right: 去这里](./photos/index.md)
 

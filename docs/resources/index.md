@@ -31,7 +31,7 @@
 ## 计算方法 2024 春季课程
 
 <div class="grid cards" markdown>
-- 实验 1 [:material-file-pdf-box:{ .middle }](./pdfs/CPM/lab1.pdf) [:material-file-code:{ .middle }](./code/CPM/lab1.c)
+- 实验 1 [:material-file-pdf-box:{ .middle }](./pdfs/CPM/lab1.pdf) [:simple-c:{ .middle }](./code/CPM/lab1.c) [:material-language-python:{ .middle }](./code/CPM/lab1.py)
 - 实验 2 [:material-file-pdf-box:{ .middle }](./pdfs/CPM/lab2.pdf) [:material-file-code:{ .middle }](./code/CPM/lab2.c)
 - 实验 3 [:material-file-pdf-box:{ .middle }](./pdfs/CPM/lab3.pdf) [:material-file-code:{ .middle }](./code/CPM/lab3.c)
 - 实验 4 [:material-file-pdf-box:{ .middle }](./pdfs/CPM/lab4.pdf) [:material-file-code:{ .middle }](./code/CPM/lab4.c)

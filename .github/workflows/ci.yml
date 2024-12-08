@@ -13,6 +13,7 @@ permissions:
 
 env:
   DOMAIN: ${{ secrets.DOMAIN }}
+  NEED_COMMIT: false
 
 jobs:
   deploy:

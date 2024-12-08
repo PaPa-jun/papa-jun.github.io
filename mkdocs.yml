@@ -87,7 +87,7 @@ extra:
     - icon: fontawesome/solid/envelope
       link: mailto:<pengyufenguni@mail.ustc.edu.cn>
     - icon: fontawesome/brands/steam
-      link: www.example.com
+      link: https://steamcommunity.com/id/PaPa_jun
   generator: false
 
 copyright: Copyright &copy; 2023 - 2024 YufengPeng

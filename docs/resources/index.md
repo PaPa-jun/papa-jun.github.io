@@ -28,6 +28,9 @@
 - 第四次作业：五子棋模型 [:material-file-pdf-box:{ .middle }](./pdfs/AI/Lab4.pdf) [:material-file-code:{ .middle }](./code/AI/lab4.py)
 </div>
 
+???+ tip
+    课程作业源文件以及所有 PPT 均在 [GitHub 仓库](https://github.com/PaPa-jun/DS4001.01.2024SP)，遵循 Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 版权协议。
+
 ## 计算方法 2024 春季课程
 
 <div class="grid cards" markdown>

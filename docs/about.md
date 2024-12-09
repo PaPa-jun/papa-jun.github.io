@@ -15,6 +15,7 @@
 - 🏆 Recipient of the Academic Scholarship on two occasions.
 - 📚 Currently focusing on Data Science and Artificial Intelligence.
 - 🔍 Committed to continuous learning and professional growth.
+- 📖 My Chinese and English are both fluent; the former is my native language, and for the latter, I have passed the national CET-4 and CET-6 examinations.
 
 ---
 
@@ -26,7 +27,7 @@
 
     ---
 
-    :simple-python: :simple-c: :simple-html5: :simple-css3: :simple-javascript: :material-vuejs:
+    :material-language-python: :material-language-c: :material-language-html5: :material-language-css3: :material-language-javascript: :material-vuejs:
 
 - :tools: **Sfotware & Tools**
 
